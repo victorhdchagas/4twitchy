@@ -1,4 +1,4 @@
-#How to configure
+# How to configure
 
 ### Use NPM Install
 
@@ -7,6 +7,6 @@
     "username": "BOT_NAME",
     "password": "tmiOAUTH",
     "channels": ["#channelName"]
-}"# 4twitchy" 
+}" 
 ```
-### use npm start
+### use "npm start"
