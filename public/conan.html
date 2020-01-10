@@ -1,0 +1,97 @@
+
+<html>
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+<style>
+#container{
+  display:none;
+}
+.fadedfx {
+  background-color: #fe5652;
+  visibility: hidden;
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
+  animation-duration: 1.5s;
+  -webkit-animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  visibility: visible !important;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1;
+  }
+  
+}
+#imagem{
+min-height:100px;
+min-width:100px;
+width:auto;
+height:100%;
+}
+
+</style>
+</head>
+<body >
+  <div class="container fadeIn" id="container">
+    <div class="col s12 m7">
+
+      <div class="card horizontal">
+        <div class="card-image">
+          <img src="http://placehold.it/100x100/DC143C/FFFFFF" id="imagem" class="fadeIn">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <span class="card-title" id="nome"></span>
+            <p ><span id="historia"></span>
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<!--  importar o client do socketIO-->
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+    // faz com que seja possível enviar mensagens com Enter
+      socket.on('CONAN_HISTORIA', function(ret){
+        document.getElementById('imagem').src = ret.imagem;
+        document.getElementById('nome').innerHTML = ret.nome;
+        document.getElementById('historia').innerHTML = ret.historia;
+        esmaecer();
+    });
+  
+  function esmaecer(){
+      $( "#container" ).fadeIn( "slow", function() {
+    setTimeout(function(){
+      $( "#container" ).fadeOut( "slow", function() {
+      })
+    },3000)
+  });
+  }
+    </script>
+    </body>
+    </html>

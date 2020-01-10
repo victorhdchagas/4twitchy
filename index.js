@@ -17,6 +17,9 @@ app.use(cors());
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
+app.get('/conan', function(req, res) {
+    res.sendFile(__dirname + '/public/conan.html');
+});
 
 
 

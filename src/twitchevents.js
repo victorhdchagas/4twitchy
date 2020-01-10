@@ -13,10 +13,8 @@ class TwitchEvents {
 
 
     async onMessageHandler(target, msg, client) {
-        console.log('onMessageHandler')
         return await new Promise(async function(res, rej) {
 
-            // Remove whitespace from chat message
             const commandName = msg.trim();
             if (commandName === "!legendy") {
                 client.say(target, "Pega no meu pau")
@@ -27,11 +25,11 @@ class TwitchEvents {
         })
     }
 
-    async modMessagesHandler(target, msg, client) {
+    async modMessageHandler(target, msg, client) {
         return await new Promise(function(res, rej) {
-            // client.say(target, new Date().toLocaleString());
-            res(new Date().toLocaleString())
-            return "";
+            if (msg === "!conan") {
+                res({ imagem: "https://www.tenthumbstypingtutor.com/images/home/viking_home_bg.gif", nome: "Victor", historia: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat" })
+            }
 
         })
 

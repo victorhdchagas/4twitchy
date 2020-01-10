@@ -7,7 +7,7 @@ import TwitchEvents from './twitchevents'
 function twitchManager(app, io) {
     let twitchpartner = new TwitchPartnerController(app.datasource.models, app.datasource.sequelize);
     let twitchEvents = new TwitchEvents();
-    // Define configuration options
+    const SPECIAL_KEY = "!";
     const opts = {
         identity: {
             username: config.twitch.username,
@@ -37,8 +37,8 @@ function twitchManager(app, io) {
 
         twitchpartner.create(partnerToCreate)
             .then(ret => {
-
-                console.log(ret.msg);
+                if (ret === "User exists")
+                    client.say(channel, `Bem vindo de volta ${username}`)
             })
     }
 
@@ -48,36 +48,16 @@ function twitchManager(app, io) {
     }
 
     async function onMessageHandler(target, context, msg, self, clients) {
-
-        console.log('onMessageHandler')
-
-        if (context.mod) {
-            let msgToSend = await twitchEvents.modMessageHandler(target, msg, client)
-            client.say(target, msgToSend)
-        } else if (msg.startsWith("!")) {
+        if (context.mod || context['display-name'] === config.twitch.username) {
+            await twitchEvents.modMessageHandler(target, msg, client)
+                .then(ret => {
+                    io.emit("CONAN_HISTORIA", ret);
+                })
+                // client.say(target, msgToSend)
+        } else if (msg.startsWith(SPECIAL_KEY)) {
 
             let msgToSend = await twitchEvents.onMessageHandler(target, msg, client)
-                // client.say(target, msgToSend)
-                // .then(ret => {
-                //     client.say(target, ret)
-                //     console.log("worked")
-                // });
         }
-        // console.log('onMessageHandler')
-        // if (self) { return; } // Ignore messages from the bot
-
-        // // Remove whitespace from chat message
-        // const commandName = msg.trim();
-
-        // // If the command is known, let's execute it
-        // if (commandName === '!dice') {
-        //     const num = rollDice();
-        //     client.say(target, `You rolled a ${num}`);
-        //     io.emit("ALERTS", num);
-        //     console.log(`* Executed ${commandName} command`);
-        // } else {
-        //     console.log(`* Unknown command ${commandName}`);
-        // }
     }
 
 }
