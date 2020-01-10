@@ -1,4 +1,5 @@
 config/twitch.json
+node_modules/*
 node_modules/.bin/atob
 node_modules/.bin/atob.cmd
 node_modules/.bin/atob.ps1
