@@ -1,0 +1,21 @@
+
+<html>
+
+<body>
+<span id="log"></span>
+
+
+ 
+<!--  importar o client do socketIO-->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+    // faz com que seja possível enviar mensagens com Enter
+      socket.on('ALERTS', function(msg){
+        console.log(msg);
+        document.getElementById('log').innerHTML = msg;
+    });
+  
+    </script>
+    </body>
+    </html>
