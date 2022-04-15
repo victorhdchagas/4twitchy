@@ -1,3 +1,4 @@
+# _DEPRECATED_ #
 # How to configure
 
 ### Use NPM Install
